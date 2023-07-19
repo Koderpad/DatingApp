@@ -18,6 +18,7 @@ namespace API.Controllers
 
         [HttpPost("register")] //POST: api/account/register?username=dave&password=pwd
         public async Task<ActionResult<AppUser>> Register(
+
             RegisterDto registerDto
         )
         {
@@ -30,8 +31,8 @@ namespace API.Controllers
 
             var user = new AppUser
             {
-                UserName = username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
+                UserName = registerDto.UserName.ToLower(),
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key
             };
 
